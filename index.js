@@ -13,16 +13,21 @@ app.get('/', (req, res) => res.render('index.html'));
 
 io.on('connection', (socket) => {
   console.log('New Websocket connection');
-  socket.emit('messageReceived', 'Welcome!');
 
-  socket.broadcast.emit('messageReceived', 'A new user has joined...');
+  socket.emit('message', 'Welcome!');
 
-  socket.on('response', (response) => {
-    io.emit('messageReceived', response);
+  socket.broadcast.emit('message', 'A new user has joined...');
+
+  socket.on('sendMessage', (response) => {
+    io.emit('message', response);
+  });
+
+  socket.on('sendLocation', (coords) => {
+    io.emit('message', `My location - https://google.com/maps?q=${coords.lat},${coords.long}`);
   });
 
   socket.on('disconnect', () => {
-    io.emit('messageReceived', 'User has left');
+    io.emit('message', 'User has left');
   });
 });
 

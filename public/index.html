@@ -10,10 +10,34 @@
 
 <body>
     <h1>Chat App</h1>
-    <form id="form">
-        <input type="text" name="message" />
-        <input type="submit" value="Submit" />
+    <form id="form" style="
+        display: flex;
+        align-items: center;
+    ">
+        <input type="text" name="message" style="
+            height: 30px;
+            width: 300px;
+            border-radius: 5px;
+            font-size: 25px;
+            margin-right: 10px;
+        " />
+        <input type="submit" value="Submit" style="
+            height: 30px;
+            background: gold;
+            font-size: 19px;
+            border-radius: 5px;
+            border: 2px solid black;
+        " />
     </form>
+
+    <button id="location" style="
+        height: 30px;
+        background: gold;
+        font-size: 19px;
+        border-radius: 5px;
+        border: 2px solid black;
+        margin: 20px;
+    ">Send Location</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/chat.js"></script>
