@@ -11,16 +11,18 @@ app.use(express.static('public'), bodyParser.json());
 
 app.get('/', (req, res) => res.render('index.html'));
 
-let count = 0;
-
 io.on('connection', (socket) => {
   console.log('New Websocket connection');
-  socket.emit('countUpdated', count);
+  socket.emit('messageReceived', 'Welcome!');
 
-  socket.on('increment', () => {
-    count += 1;
-    // socket.emit('countUpdated', count);
-    io.emit('countUpdated', count);
+  socket.broadcast.emit('messageReceived', 'A new user has joined...');
+
+  socket.on('response', (response) => {
+    io.emit('messageReceived', response);
+  });
+
+  socket.on('disconnect', () => {
+    io.emit('messageReceived', 'User has left');
   });
 });
 
