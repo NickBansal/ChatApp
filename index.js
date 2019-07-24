@@ -11,6 +11,7 @@ app.use(express.static('public'), bodyParser.json());
 
 app.get('/', (req, res) => res.render('index.html'));
 
+
 io.on('connection', (socket) => {
   console.log('New Websocket connection');
 
