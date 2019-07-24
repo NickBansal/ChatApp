@@ -13,18 +13,17 @@ app.get('/', (req, res) => res.render('index.html'));
 
 
 io.on('connection', (socket) => {
-  console.log('New Websocket connection');
-
   socket.emit('message', 'Welcome!');
-
   socket.broadcast.emit('message', 'A new user has joined...');
 
-  socket.on('sendMessage', (response) => {
+  socket.on('sendMessage', (response, callback) => {
     io.emit('message', response);
+    callback('Message Delivered!!');
   });
 
-  socket.on('sendLocation', (coords) => {
+  socket.on('sendLocation', (coords, callback) => {
     io.emit('message', `My location - https://google.com/maps?q=${coords.lat},${coords.long}`);
+    callback('Location shared');
   });
 
   socket.on('disconnect', () => {
